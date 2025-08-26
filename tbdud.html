@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>True Blood: Dead Until Dark</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            background: linear-gradient(to bottom, #1b1b1b, #333333);
+            color: #fff;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #2a2a2a;
+            border-radius: 15px;
+            box-shadow: 0 0 15px #000;
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+        }
+
+        .text {
+            flex: 1;
+            padding-right: 20px;
+        }
+
+        h1 {
+            color: orange;
+            font-weight: bold;
+            font-size: 28px;
+            margin-bottom: 15px;
+            text-shadow: 1px 1px 3px #000;
+        }
+
+        p {
+            font-size: 16px;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            color: #fff;
+            text-shadow: 1px 1px 2px #000;
+        }
+
+        .image {
+            flex-shrink: 0;
+        }
+
+        .image img {
+            max-width: 200px;
+            border: 2px solid #555;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #000;
+        }
+
+        .downloads {
+            margin-top: 20px;
+        }
+
+        .downloads a {
+            display: inline-block;
+            margin-right: 10px;
+            padding: 10px 15px;
+            background: linear-gradient(to bottom, #444, #222);
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 8px;
+            box-shadow: 0 3px 6px #000;
+            transition: all 0.2s ease;
+        }
+
+        .downloads a:hover {
+            background: linear-gradient(to bottom, #666, #333);
+            box-shadow: 0 4px 10px #000;
+        }
+
+        .downloads a:after {
+            content: '';
+            display: block;
+            height: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            position: relative;
+            top: -100%;
+            border-radius: 8px 8px 0 0;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="text">
+            <h1>True Blood: Dead Until Dark</h1>
+            <p>Dead Until Dark, by Charlaine Harris</p>
+            <div class="downloads">
+                <a href="tbdud.MOBI" download>Download MOBI</a>
+                <a href="tbdud.pdf" download>Download PDF</a>
+                <a href="tbdud.AZW3" download>Download AZW3</a>
+            </div>
+        </div>
+        <div class="image">
+            <img src="tbdud.png" alt="True Blood Dead Until Dark Cover">
+        </div>
+    </div>
+</body>
+</html>
