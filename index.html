@@ -44,6 +44,14 @@ button {
     width: 100%;
     overflow-x: auto;
     scroll-behavior: smooth;
+
+    /* Hide scrollbar for Kindle-style look */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE 10+ */
+}
+
+#library::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
 }
 
 .carousel {
@@ -153,6 +161,10 @@ function login(){
                 btn.style.backgroundImage = "url('hp4.png')";
                 btn.onclick = () => { window.location.href = "hpgf.html"; };
                 btn.textContent = "";
+            } else if(i === 8){
+                btn.style.backgroundImage = "url('tbdud.png')";
+                btn.onclick = () => { window.location.href = "tbdud.html"; };
+                btn.textContent = "";
             } else {
                 btn.textContent = "Item " + i;
             }
@@ -248,5 +260,4 @@ document.addEventListener('touchmove', e => {
 </script>
 </body>
 </html>
-
 
