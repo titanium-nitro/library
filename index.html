@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Library Of Nitro</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: #1a1a1a;
+    color: #fff;
+    margin: 0;
+    overflow: hidden;
+}
+
+input {
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+    border: none;
+}
+
+button {
+    padding: 10px 20px;
+    border-radius: 12px;
+    border: 1px solid #fff;
+    background: linear-gradient(to bottom, #ff9900 0%, #cc7a00 100%);
+    color: #fff;
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.5), inset 0 -2px rgba(255,255,255,0.3);
+    text-shadow: 0 1px rgba(0,0,0,0.4);
+    transition: transform 0.3s, z-index 0.3s;
+}
+
+#library {
+    display: none;
+    margin-top: 20px;
+    width: 100%;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+}
+
+.carousel {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    gap: 20px;
+}
+
+.carousel button {
+    min-width: 150px;
+    min-height: 150px;
+    font-size: 18px;
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-size: cover;
+    background-position: center;
+    border-radius: 15px;
+}
+
+.carousel button.center {
+    transform: scale(1.2);
+    z-index: 10;
+}
+
+.carousel button.side {
+    transform: scale(0.8);
+    z-index: 5;
+}
+
+#icon-login img {
+    width: 100px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+</style>
+</head>
+<body>
+<h1>Library Of Nitro</h1>
+
+<!-- Original login -->
+<div id="login">
+    <input type="text" id="username" placeholder="Enter username" />
+    <button onclick="login()">Enter</button>
+</div>
+
+<!-- Icon login -->
+<div id="icon-login">
+    <img src="lon.png" alt="Login Icon" onclick="iconLogin()" />
+</div>
+
+<!-- Carousel -->
+<div id="library">
+    <div class="carousel" id="carousel"></div>
+</div>
+
+<script>
+// Obfuscated usernames using char codes + shifts
+const encodedUsers = [
+    [84,105,116,97,110,105,117,109,66,105,116,115].map(c=>c+1),  // TitaniumBits
+    [66,97,110,97,110,97,122,70,108,111,111,100].map(c=>c+2),    // BananazFlood
+    [77,117,115,116,121,56,56,57,54].map(c=>c+3),                 // Musty8896
+    [75,97,121].map(c=>c+4)                                        // Kay
+];
+
+function decode(arr, shift){
+    return arr.map(c => String.fromCharCode(c-shift)).join('');
+}
+
+const allowedUsers = [
+    decode(encodedUsers[0],1),
+    decode(encodedUsers[1],2),
+    decode(encodedUsers[2],3),
+    decode(encodedUsers[3],4)
+];
+
+let currentIndex = 0;
+let carousel;
+
+// Original login function
+function login(){
+    const input = document.getElementById("username").value;
+    if(allowedUsers.includes(input)){
+        document.getElementById("login").style.display = "none";
+        document.getElementById("library").style.display = "block";
+
+        carousel = document.getElementById("carousel");
+        carousel.innerHTML = "";
+
+        for(let i=1;i<=10;i++){
+            const btn = document.createElement("button");
+            if(i === 1){
+                btn.style.backgroundImage = "url('hp1.png')";
+                btn.onclick = () => { window.location.href = "hpaps.html"; };
+                btn.textContent = "";
+            } else if(i === 2){
+                btn.style.backgroundImage = "url('hp2.png')";
+                btn.onclick = () => { window.location.href = "hpacs.html"; };
+                btn.textContent = "";
+            } else if(i === 3){
+                btn.style.backgroundImage = "url('hp3.png')";
+                btn.onclick = () => { window.location.href = "hppa.html"; };
+                btn.textContent = "";
+            } else if(i === 4){
+                btn.style.backgroundImage = "url('hp4.png')";
+                btn.onclick = () => { window.location.href = "hpgf.html"; };
+                btn.textContent = "";
+            } else {
+                btn.textContent = "Item " + i;
+            }
+            carousel.appendChild(btn);
+        }
+
+        currentIndex = 0;
+        updateCarousel();
+    } else {
+        alert("Access denied.");
+    }
+}
+
+// Icon login function
+function iconLogin() {
+    const username = prompt("Enter your username:");
+    if (!username) return;
+
+    const allowedIconUsers = [
+        decode([75,97,121].map(c=>c+4), 4),           // Kay
+        decode([84,105,116,97,110,105,117,109,66,105,116,115].map(c=>c+1), 1) // TitaniumBits
+    ];
+
+    if(allowedIconUsers.includes(username)){
+        window.location.href = "index-old.html";
+    } else {
+        alert("Access denied.");
+    }
+}
+
+// Update carousel center/side classes and scroll
+function updateCarousel() {
+    const buttons = carousel.querySelectorAll("button");
+    buttons.forEach((b,i)=>{
+        b.classList.remove("center","side");
+        if(i === currentIndex) b.classList.add("center");
+        else b.classList.add("side");
+    });
+
+    const containerWidth = carousel.offsetWidth;
+    const btn = buttons[currentIndex];
+    const btnCenter = btn.offsetLeft + btn.offsetWidth / 2;
+    carousel.scrollTo({
+        left: btnCenter - containerWidth / 2,
+        behavior: 'smooth'
+    });
+}
+
+// Keyboard navigation
+document.addEventListener("keydown", e => {
+    const buttons = carousel?.querySelectorAll("button");
+    if(!buttons) return;
+    if(e.key === "ArrowRight") {
+        currentIndex = (currentIndex + 1) % buttons.length;
+        updateCarousel();
+    } else if(e.key === "ArrowLeft") {
+        currentIndex = (currentIndex - 1 + buttons.length) % buttons.length;
+        updateCarousel();
+    }
+});
+
+// Mouse/touch drag support
+let isDown = false, startX, scrollLeft;
+document.addEventListener('mousedown', e => {
+    if(!carousel) return;
+    isDown = true;
+    startX = e.pageX - carousel.offsetLeft;
+    scrollLeft = carousel.scrollLeft;
+});
+document.addEventListener('mouseleave', () => isDown=false);
+document.addEventListener('mouseup', () => isDown=false);
+document.addEventListener('mousemove', e => {
+    if(!isDown) return;
+    e.preventDefault();
+    const x = e.pageX - carousel.offsetLeft;
+    const walk = (startX - x);
+    carousel.scrollLeft = scrollLeft + walk;
+});
+
+// Touch support
+document.addEventListener('touchstart', e => {
+    if(!carousel) return;
+    startX = e.touches[0].pageX - carousel.offsetLeft;
+    scrollLeft = carousel.scrollLeft;
+});
+document.addEventListener('touchmove', e => {
+    if(!carousel) return;
+    e.preventDefault();
+    const x = e.touches[0].pageX - carousel.offsetLeft;
+    const walk = (startX - x);
+    carousel.scrollLeft = scrollLeft + walk;
+}, { passive: false });
+</script>
+</body>
+</html>
+
+
